@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -296,13 +297,22 @@ namespace BehemothWinFormsApp.Class
                     weekSupoter.UsedSupoterCount++;
                     if (DepartureOrder == 0)
                     {
-                        weekSupoter.OrderMessages[DepartureOrder + 1] = "(ㄷ)";
+                        int tempCount = 0;
+                        while (true)
+                        {
+                            if (weekSupoter.SupoterCount > weekSupoter.UsedSupoterCount + (tempCount++))
+                            {
+                                continue;
+                            }
+                            weekSupoter.OrderMessages[DepartureOrder + tempCount] = "(ㄷ)";
+                            break;
+                            
+                        }
                     }
                     else
                     {
                         weekSupoter.OrderMessages[DepartureOrder - 1] = "(ㄷ)";
                     }
-                    weekSupoter.UsedSupoterCount++;
                     foreach (var item in Players)
                     {
                         if (!item.Equals(weekSupoter))
